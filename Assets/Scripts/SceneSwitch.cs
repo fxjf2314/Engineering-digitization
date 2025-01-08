@@ -34,6 +34,12 @@ public class SceneSwitch : MonoBehaviour
                     case "图鉴":
                         sceneName = "IllusHandbook";
                         break;
+                    case "拆装实验":
+                        sceneName = "SplicingScene";
+                        break;
+                    case "旋转实验":
+                        sceneName = "RevolveScenes";
+                        break;
                     default: break;
                 }
             }

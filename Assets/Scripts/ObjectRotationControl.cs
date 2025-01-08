@@ -15,11 +15,6 @@ public class ObjectRotationControl : MonoBehaviour
         if (speedControlButton != null)
         {
             speedControlButton.onClick.AddListener(OnSpeedControlButtonClick);
-            Debug.Log("SpeedControl Button Event Bound"); // 添加调试日志
-        }
-        else
-        {
-            Debug.LogError("SpeedControl Button is not assigned!");
         }
 
         if (speedSlider != null)

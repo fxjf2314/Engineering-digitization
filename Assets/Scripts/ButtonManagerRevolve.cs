@@ -56,10 +56,6 @@ public class ButtonManagerRevolve : MonoBehaviour
             // 监听 Slider 的值变化事件
             speedSlider.onValueChanged.AddListener(OnSliderValueChanged);
         }
-        else
-        {
-            Debug.LogError("speedSlider is not assigned!");
-        }
     }
 
     private void OnRotateButtonClick()
@@ -97,7 +93,6 @@ public class ButtonManagerRevolve : MonoBehaviour
     private void OnSpeedControlButtonClick()
     {
         speedSlider.gameObject.SetActive(true);
-        Debug.Log("Speed Control Button Clicked!");
     }
 
     private void OnSliderPointerUp()
