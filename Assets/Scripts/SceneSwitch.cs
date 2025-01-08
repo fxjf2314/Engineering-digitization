@@ -34,6 +34,12 @@ public class SceneSwitch : MonoBehaviour
                     case "Í¼¼ø":
                         sceneName = "IllusHandbook";
                         break;
+                    case "²ð×°ÊµÑé":
+                        sceneName = "Game";
+                        break;
+                    case "¸ÅÄî½éÉÜ":
+                        sceneName = "Concept";
+                        break;
                     default: break;
                 }
             }
