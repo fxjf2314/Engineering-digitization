@@ -1,4 +1,4 @@
-//¿ØÖÆËùÓÐ°´Å¥µÄÆôÓÃÓë½ûÓÃÂß¼­
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð°ï¿½Å¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -30,7 +30,7 @@ public class ButtonManager : MonoBehaviour
 
         speedSlider.gameObject.SetActive(false); 
 
-        // ¼àÌý Slider µÄÊó±êËÉ¿ªÊÂ¼þ
+        // ï¿½ï¿½ï¿½ï¿½ Slider ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¿ï¿½ï¿½Â¼ï¿½
         EventTrigger trigger = speedSlider.gameObject.AddComponent<EventTrigger>();
         EventTrigger.Entry entry = new EventTrigger.Entry();
         entry.eventID = EventTriggerType.PointerUp; 
@@ -38,21 +38,21 @@ public class ButtonManager : MonoBehaviour
         trigger.triggers.Add(entry);
     }
 
-    // Rotate the perspective °´Å¥µã»÷ÊÂ¼þ
+    // Rotate the perspective ï¿½ï¿½Å¥ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
     private void OnRotateButtonClick()
     {
         isRotateActive = true;
         UpdateButtonStates();
     }
 
-    // Start splicingButton °´Å¥µã»÷ÊÂ¼þ
+    // Start splicingButton ï¿½ï¿½Å¥ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
     private void OnStartSplicingButtonClick()
     {
         isSplicingActive = !isSplicingActive;
         UpdateButtonStates();
     }
 
-    // RemoveButton °´Å¥µã»÷ÊÂ¼þ
+    // RemoveButton ï¿½ï¿½Å¥ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
     private void OnRemoveButtonClick()
     {
         isRotateActive = false;
@@ -60,38 +60,38 @@ public class ButtonManager : MonoBehaviour
         UpdateButtonStates();
     }
 
-    // Revolve °´Å¥µã»÷ÊÂ¼þ
+    // Revolve ï¿½ï¿½Å¥ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
     private void OnRevolveButtonClick()
     {
         isRevolveActive = true;
         UpdateButtonStates();
     }
 
-    // Revolve Stop °´Å¥µã»÷ÊÂ¼þ
+    // Revolve Stop ï¿½ï¿½Å¥ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
     private void OnRevolveStopButtonClick()
     {
         isRevolveActive = false;
         UpdateButtonStates();
     }
 
-    // SpeedControl °´Å¥µã»÷ÊÂ¼þ
+    // SpeedControl ï¿½ï¿½Å¥ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
     private void OnSpeedControlButtonClick()
     {
-        // ÇÐ»» Slider µÄ¿É¼ûÐÔ
+        // ï¿½Ð»ï¿½ Slider ï¿½Ä¿É¼ï¿½ï¿½ï¿½
         speedSlider.gameObject.SetActive(true);
     }
 
-    // Slider Êó±êËÉ¿ªÊÂ¼þ
+    // Slider ï¿½ï¿½ï¿½ï¿½É¿ï¿½ï¿½Â¼ï¿½
     private void OnSliderPointerUp()
     {
-        // Êó±êËÉ¿ªÊ±£¬Òþ²Ø Slider
+        // ï¿½ï¿½ï¿½ï¿½É¿ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Slider
         speedSlider.gameObject.SetActive(false);
     }
 
-    // ¸üÐÂËùÓÐ°´Å¥×´Ì¬
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð°ï¿½Å¥×´Ì¬
     private void UpdateButtonStates()
     {
-        // Èç¹û Rotate ¼¤»î
+        // ï¿½ï¿½ï¿½ Rotate ï¿½ï¿½ï¿½ï¿½
         if (isRotateActive)
         {
             rotateButton.interactable = false;
@@ -101,7 +101,7 @@ public class ButtonManager : MonoBehaviour
             speedControlButton.interactable = false;
             removeButton.interactable = true;
         }
-        // Èç¹û Splicing ¼¤»î
+        // ï¿½ï¿½ï¿½ Splicing ï¿½ï¿½ï¿½ï¿½
         else if (isSplicingActive)
         {
             rotateButton.interactable = false;
@@ -110,7 +110,7 @@ public class ButtonManager : MonoBehaviour
             revolveStopButton.interactable = false;
             speedControlButton.interactable = false;
         }
-        // Èç¹û Revolve ¼¤»î
+        // ï¿½ï¿½ï¿½ Revolve ï¿½ï¿½ï¿½ï¿½
         else if (isRevolveActive)
         {
             rotateButton.interactable = false;
@@ -119,7 +119,7 @@ public class ButtonManager : MonoBehaviour
             revolveStopButton.interactable = true;
             speedControlButton.interactable = true;
         }
-        // Ä¬ÈÏ×´Ì¬
+        // Ä¬ï¿½ï¿½×´Ì¬
         else
         {
             rotateButton.interactable = true;

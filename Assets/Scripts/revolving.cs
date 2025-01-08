@@ -1,10 +1,10 @@
-//ÎïÌåÐý×ª
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ª
 using UnityEngine;
 
 public class Controller : MonoBehaviour
 {
     private bool isRotating = false;
-    public float rotateSpeed = 50f;  // Ðý×ªËÙ¶È
+    public float rotateSpeed = 50f;  // ï¿½ï¿½×ªï¿½Ù¶ï¿½
     private Quaternion initialRotation;
 
     void Start()
@@ -19,12 +19,10 @@ public class Controller : MonoBehaviour
             transform.Rotate(Vector3.right * rotateSpeed * Time.deltaTime);
         }
     }
-
     public void StartRotating()
     {
         isRotating = true;
     }
-
     public void StopRotating()
     {
         isRotating = false;

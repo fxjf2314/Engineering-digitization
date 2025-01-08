@@ -1,17 +1,17 @@
-//ÊÓ½ÇÐý×ªµÄÂß¼­
+//ï¿½Ó½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ß¼ï¿½
 using UnityEngine;
 
 public class CameraDragRotate : MonoBehaviour
 {
-    public Transform target;     // ÉãÏñ»úÎ§ÈÆµÄÄ¿±ê
-    public float distance = 5.0f; // ÉãÏñ»úÓëÄ¿±êµÄ¾àÀë
-    public float distanceMin = 2.0f; // ×îÐ¡¾àÀë
-    public float distanceMax = 10.0f; // ×î´ó¾àÀë
-    public float xSpeed = 120.0f; // Ë®Æ½ÍÏ×§ËÙ¶È
-    public float ySpeed = 120.0f; // ´¹Ö±ÍÏ×§ËÙ¶È
+    public Transform target;     // ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½Æµï¿½Ä¿ï¿½ï¿½
+    public float distance = 5.0f; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½
+    public float distanceMin = 2.0f; // ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½
+    public float distanceMax = 10.0f; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public float xSpeed = 120.0f; // Ë®Æ½ï¿½ï¿½×§ï¿½Ù¶ï¿½
+    public float ySpeed = 120.0f; // ï¿½ï¿½Ö±ï¿½ï¿½×§ï¿½Ù¶ï¿½
 
-    public float yMinLimit = -20f; // ´¹Ö±½Ç¶ÈÏÂÏÞ
-    public float yMaxLimit = 80f;  // ´¹Ö±½Ç¶ÈÉÏÏÞ
+    public float yMinLimit = -20f; // ï¿½ï¿½Ö±ï¿½Ç¶ï¿½ï¿½ï¿½ï¿½ï¿½
+    public float yMaxLimit = 80f;  // ï¿½ï¿½Ö±ï¿½Ç¶ï¿½ï¿½ï¿½ï¿½ï¿½
 
     private float x = 0.0f;
     private float y = 0.0f;
@@ -35,7 +35,7 @@ public class CameraDragRotate : MonoBehaviour
     {
         if (target)
         {
-            if (Input.GetMouseButton(0)) // Ö±½ÓÅÐ¶ÏÊó±ê×ó¼üÊÇ·ñ°´ÏÂ
+            if (Input.GetMouseButton(0)) // Ö±ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½
             {
                 x += Input.GetAxis("Mouse X") * xSpeed * 0.02f;
                 y -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f;
