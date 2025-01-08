@@ -16,7 +16,7 @@ public class CameraDragRotate : MonoBehaviour
     private float x = 0.0f;
     private float y = 0.0f;
 
-    private bool isDraggingOtherObject = false;
+    //private bool isDraggingOtherObject = false;
 
     void Start()
     {
@@ -58,7 +58,7 @@ public class CameraDragRotate : MonoBehaviour
         }
     }
 
-    void CheckIfDraggingOtherObject()
+   /* void CheckIfDraggingOtherObject()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -86,7 +86,7 @@ public class CameraDragRotate : MonoBehaviour
         {
             isDraggingOtherObject = false;
         }
-    }
+    }*/
 
     static float ClampAngle(float angle, float min, float max)
     {
