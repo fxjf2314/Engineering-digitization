@@ -24,6 +24,10 @@ public class DragManager : MonoBehaviour
     private Quaternion initialCameraRotation;
     private Vector3 initialCameraPosition;
 
+    private int completedCount = 0; // 计数器
+
+    public GameObject completionText; // UI 提示元素
+
     private void Start()
     {
         initialCameraRotation = Camera.main.transform.rotation;
@@ -35,6 +39,12 @@ public class DragManager : MonoBehaviour
         {
             Transform child = emParts.GetChild(i);
             em.Add(child, finalEm.Find(child.name));
+        }
+
+        // 初始化 UI 提示为隐藏状态
+        if (completionText != null)
+        {
+            completionText.SetActive(false);
         }
     }
 
@@ -68,11 +78,9 @@ public class DragManager : MonoBehaviour
             if (outline) outline.enabled = false;
         }
 
-        
         if (isDrag && Input.GetMouseButton(0))
         {
             Vector3 mouseWorldPos = GetMouseWorldPosition();
-
             dragObj.position = mouseWorldPos + offset;
 
             IsFinished();
@@ -87,7 +95,6 @@ public class DragManager : MonoBehaviour
 
     private Vector3 GetMouseWorldPosition()
     {
-
         Quaternion currentCameraRotation = Camera.main.transform.rotation;
         Vector3 currentCameraPosition = Camera.main.transform.position;
 
@@ -100,13 +107,11 @@ public class DragManager : MonoBehaviour
 
         if (plane.Raycast(ray, out float distance))
         {
-
             Camera.main.transform.rotation = currentCameraRotation;
             Camera.main.transform.position = currentCameraPosition;
 
             return ray.GetPoint(distance);
         }
-
 
         Camera.main.transform.rotation = currentCameraRotation;
         Camera.main.transform.position = currentCameraPosition;
@@ -125,6 +130,31 @@ public class DragManager : MonoBehaviour
             outline.enabled = false;
             dragObj = null;
             isDrag = false;
+
+            // 增加计数器
+            completedCount++;
+
+            // 检查是否所有物体都已吸附
+            if (completedCount == em.Count)
+            {
+                ShowCompletionMessage();
+            }
         }
+    }
+
+    private void ShowCompletionMessage()
+    {
+        Debug.Log("已全部完成！");
+        if (completionText != null)
+        {
+            completionText.SetActive(true);
+            StartCoroutine(HideCompletionMessageAfterDelay(3f)); // 3 秒后隐藏
+        }
+    }
+
+    private IEnumerator HideCompletionMessageAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        completionText.SetActive(false);
     }
 }

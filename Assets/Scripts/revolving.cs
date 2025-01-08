@@ -1,10 +1,10 @@
-//ÎïÌåÐý×ª
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ª
 using UnityEngine;
 
 public class Controller : MonoBehaviour
 {
-    private bool isRotating = false; 
-    public float rotateSpeed = 50f;  
+    private bool isRotating = false;
+    public float rotateSpeed = 50f;  // ï¿½ï¿½×ªï¿½Ù¶ï¿½
     private Quaternion initialRotation;
 
     void Start()
