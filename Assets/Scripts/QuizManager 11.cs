@@ -49,7 +49,7 @@ public class QuizManager11 : MonoBehaviour
 
         // 默认加载第一个题目组
         SwitchQuestionGroup(0);
-
+        
         // 初始化下一题按钮状态
         nextButton.interactable = false;
     }
@@ -57,6 +57,7 @@ public class QuizManager11 : MonoBehaviour
     // 手动切换题目组
     public void SwitchQuestionGroup(int groupIndex)
     {
+
         // 检查 questionDatas 是否分配
         if (questionDatas == null || questionDatas.Length == 0)
         {
@@ -97,6 +98,8 @@ public class QuizManager11 : MonoBehaviour
 
         currentGroupName = currentQuestionData.groupName; // 使用 groupName 标识组别
         totalQuestions = currentQuestionData.questions.Length;
+        Debug.Log($"总题目数：{totalQuestions}");
+
 
         // 检查 GlobalQuizManager.Instance 是否分配
         if (GlobalQuizManager.Instance == null)
@@ -112,6 +115,11 @@ public class QuizManager11 : MonoBehaviour
         currentQuestionIndex = 0;
         LoadQuestion(currentQuestionIndex);
         UpdateProgress();
+        Debug.Log($"当前题目组：{currentGroupName}，题目数量：{currentQuestionData.questions.Length}");
+        for (int i = 0; i < currentQuestionData.questions.Length; i++)
+        {
+            Debug.Log($"题目 {i + 1}: {currentQuestionData.questions[i].questionText}");
+        }
     }
 
     // 加载题目
@@ -129,14 +137,34 @@ public class QuizManager11 : MonoBehaviour
         // 设置选项内容
         for (int i = 0; i < optionButtons.Length; i++)
         {
-            optionButtons[i].GetComponentInChildren<TMP_Text>().text = question.options[i];
-            int optionIndex = i;
-            optionButtons[i].onClick.RemoveAllListeners();
-            optionButtons[i].onClick.AddListener(() => OnOptionClick(optionIndex, question.correctOption));
+            if (i < question.options.Length)
+            {
+                optionButtons[i].gameObject.SetActive(true); // 启用按钮
+                optionButtons[i].GetComponentInChildren<TMP_Text>().text = question.options[i];
+                int optionIndex = i;
+                optionButtons[i].onClick.RemoveAllListeners();
+                optionButtons[i].onClick.AddListener(() => OnOptionClick(optionIndex, question.correctOption));
+            }
+            else
+            {
+                optionButtons[i].gameObject.SetActive(false); // 隐藏多余按钮
+            }
         }
 
         // 更新下一题按钮文字
         nextButton.GetComponentInChildren<TMP_Text>().text = (index == totalQuestions - 1) ? "提交" : "下一题";
+
+        // 清空反馈提示
+        feedbackText.text = "";
+
+        // 启用选项按钮
+        foreach (var button in optionButtons)
+        {
+            button.interactable = true;
+        }
+
+        // 禁用下一题按钮，直到选择答案
+        nextButton.interactable = false;
     }
 
     // 选项点击事件
@@ -159,9 +187,9 @@ public class QuizManager11 : MonoBehaviour
         // 启用下一题按钮
         nextButton.interactable = true;
 
+        // 更新进度条
         UpdateProgress();
     }
-
     // 更新进度条
     void UpdateProgress()
     {
@@ -169,6 +197,7 @@ public class QuizManager11 : MonoBehaviour
         fillImage.fillAmount = progress; // 更新圆环形进度条
         progressText.text = $"{(int)(progress * 100)}%"; // 更新百分比文本
     }
+
 
     // 下一题按钮点击事件
     public void OnNextButtonClick()

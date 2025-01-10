@@ -149,7 +149,7 @@ public class ButtonManagerRevolve : MonoBehaviour
             case ButtonState.RotateActive:
                 rotateButton.interactable = false;
                 startSplicingButton.interactable = false;
-                revolveButton.interactable = false;
+                revolveButton.interactable = false;//111
                 removeButton.interactable = true;
                 break;
 
