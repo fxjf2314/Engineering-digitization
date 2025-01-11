@@ -14,6 +14,10 @@ public class GlobalQuizManager : MonoBehaviour
     public int totalAnsweredQuestions;                            // 所有场景的总已答题数
     public int totalCorrectAnswers;                               // 所有场景的总正确答题数
 
+    // 定义事件，用于通知答题状态更新
+    public delegate void AnswerUpdatedHandler();
+    public static event AnswerUpdatedHandler OnAnswerUpdated;
+
     private void Awake()
     {
         // 单例模式
@@ -81,6 +85,9 @@ public class GlobalQuizManager : MonoBehaviour
 
         // 更新答题状态
         sceneGroupAnswerStatus[sceneName][groupName][questionIndex] = true;
+
+        // 触发事件，通知 UI 更新
+        OnAnswerUpdated?.Invoke();
     }
 
     // 获取全局进度

@@ -226,7 +226,11 @@ public class QuizManager11 : MonoBehaviour
             nextButton.interactable = false; // 禁用按钮
         }
     }
-
+    public bool IsGroupComplete()
+    {
+        // 如果当前题目索引是最后一题，并且下一题按钮被禁用（表示已完成）
+        return currentQuestionIndex == totalQuestions - 1 && !nextButton.interactable;
+    }
     // 关闭题目面板
     public void OnCloseButtonClick()
     {

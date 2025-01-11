@@ -5,7 +5,8 @@ using TMPro; // 引入 TMP 命名空间
 public class QuizButton : MonoBehaviour
 {
     public Button targetButton; // 目标按钮
-    public GameObject panel;    // 需要显示的 Panel
+    public GameObject panelCorrect20; // 答题正确数达到 20 时打开的 Panel
+    public GameObject panelLessThan20; // 答题正确数不足 20 时打开的 Panel
     public GameObject floatingTextPrefab; // 悬浮字体预制体（TMP）
     public Transform canvasTransform; // Canvas 的 Transform，用于实例化悬浮字体
 
@@ -20,11 +21,23 @@ public class QuizButton : MonoBehaviour
         // 获取全局进度
         float progress = GlobalQuizManager.Instance.GetGlobalProgress();
 
+        // 获取全局正确答题数
+        int correctAnswers = GlobalQuizManager.Instance.totalCorrectAnswers;
+
         // 判断是否全部答完
         if (progress >= 1.0f) // 全部答完
         {
-            // 显示 Panel
-            panel.SetActive(true);
+            // 判断正确答题数是否达到 20
+            if (correctAnswers >= 20)
+            {
+                // 打开答题正确数达到 20 的 Panel
+                panelCorrect20.SetActive(true);
+            }
+            else
+            {
+                // 打开答题正确数不足 20 的 Panel
+                panelLessThan20.SetActive(true);
+            }
         }
         else // 未全部答完
         {
