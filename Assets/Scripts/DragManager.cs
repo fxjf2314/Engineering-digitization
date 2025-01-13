@@ -25,9 +25,10 @@ public class DragManager : MonoBehaviour
     private Vector3 initialCameraPosition;
 
     private int completedCount = 0; // 计数器
-    private int currentIndex = 0; // 当前可拖动的物体索引
+    private int currentIndex = 0; // 当前可吸附的物体索引
 
     public GameObject completionText; // UI 提示元素
+    public NewObjectController newObjectController; // 新物体控制器
 
     private List<Transform> dragObjects = new List<Transform>(); // 所有可拖动物体的列表
 
@@ -54,10 +55,10 @@ public class DragManager : MonoBehaviour
             completionText.SetActive(false);
         }
 
-        // 禁用所有可拖动物体，除了第一个
-        for (int i = 1; i < dragObjects.Count; i++)
+        // 所有物体初始状态为显示
+        foreach (Transform obj in dragObjects)
         {
-            dragObjects[i].gameObject.SetActive(false);
+            obj.gameObject.SetActive(true);
         }
     }
 
@@ -78,15 +79,11 @@ public class DragManager : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0))
             {
-                // 检查当前拖动的物体是否是当前可拖动的物体
-                if (hit.collider.transform == dragObjects[currentIndex])
-                {
-                    isDrag = true;
-                    dragObj = hit.collider.transform;
+                isDrag = true;
+                dragObj = hit.collider.transform;
 
-                    Vector3 mouseWorldPos = GetMouseWorldPosition();
-                    offset = dragObj.position - mouseWorldPos;
-                }
+                Vector3 mouseWorldPos = GetMouseWorldPosition();
+                offset = dragObj.position - mouseWorldPos;
             }
             oldObj = hit.collider.transform;
         }
@@ -138,39 +135,60 @@ public class DragManager : MonoBehaviour
 
     void IsFinished()
     {
-        if (Vector3.Distance(dragObj.position, em[dragObj].position) < dis)
+        // 检查当前拖动的物体是否是当前顺序的物体
+        if (dragObj == dragObjects[currentIndex])
         {
-            Debug.Log("物体已吸附"); // 调试日志
-
-            dragObj.position = em[dragObj].position;
-            dragObj.tag = "Finished";
-            em[dragObj].gameObject.SetActive(false);
-            Outline outline = dragObj.GetComponent<Outline>();
-            outline.enabled = false;
-            dragObj = null;
-            isDrag = false;
-
-            completedCount++;
-            Debug.Log("completedCount: " + completedCount); // 调试日志
-
-            // 启用下一个可拖动物体
-            if (currentIndex + 1 < dragObjects.Count)
+            if (Vector3.Distance(dragObj.position, em[dragObj].position) < dis)
             {
-                currentIndex++;
-                dragObjects[currentIndex].gameObject.SetActive(true);
-            }
+                Debug.Log("物体已吸附"); // 调试日志
 
-            if (completedCount == em.Count)
-            {
-                Debug.Log("所有物体已吸附"); // 调试日志
-                ShowCompletionMessage();
+                dragObj.position = em[dragObj].position;
+                dragObj.tag = "Finished";
+                em[dragObj].gameObject.SetActive(false);
+                Outline outline = dragObj.GetComponent<Outline>();
+                outline.enabled = false;
+                dragObj = null;
+                isDrag = false;
+
+                completedCount++;
+                Debug.Log("completedCount: " + completedCount); // 调试日志
+
+                // 更新当前顺序索引
+                if (currentIndex + 1 < dragObjects.Count)
+                {
+                    currentIndex++;
+                }
+
+                if (completedCount == em.Count)
+                {
+                    Debug.Log("所有物体已吸附"); // 调试日志
+                    ShowCompletionMessage();
+                }
             }
+        }
+        else
+        {
+            Debug.Log("拖拽顺序错误，物体不会被吸附"); // 调试日志
         }
     }
 
     private void ShowCompletionMessage()
     {
         Debug.Log("ShowCompletionMessage 被调用"); // 调试日志
+
+        // 隐藏所有拼接完成的物体
+        foreach (Transform obj in dragObjects)
+        {
+            obj.gameObject.SetActive(false);
+        }
+
+        // 显示新物体
+        if (newObjectController != null)
+        {
+            newObjectController.Show();
+        }
+
+        // 显示完成提示
         if (completionText != null)
         {
             completionText.SetActive(true);

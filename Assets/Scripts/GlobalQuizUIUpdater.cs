@@ -1,10 +1,21 @@
 using UnityEngine;
-using TMPro; // 引入 TextMeshPro 命名空间
+using TMPro;
 
 public class GlobalQuizUIUpdater : MonoBehaviour
 {
-    // 使用 TextMeshProUGUI 组件
     public TextMeshProUGUI correctAnswersText;
+
+    private void Awake()
+    {
+        // 单例模式，确保只有一个 GlobalQuizUIUpdater 实例
+        if (FindObjectsOfType<GlobalQuizUIUpdater>().Length > 1)
+        {
+            Destroy(gameObject); // 如果已经存在实例，销毁当前对象
+            return;
+        }
+
+        DontDestroyOnLoad(gameObject); // 跨场景保留
+    }
 
     private void Start()
     {
@@ -31,13 +42,17 @@ public class GlobalQuizUIUpdater : MonoBehaviour
         GlobalQuizManager.OnAnswerUpdated -= UpdateCorrectAnswersUI;
     }
 
-    // 更新 UI 显示答对题目数量
     private void UpdateCorrectAnswersUI()
     {
+        // 动态查找 correctAnswersText 对象
         if (correctAnswersText == null)
         {
-            Debug.LogError("correctAnswersText 未赋值！请检查 UI 组件。");
-            return;
+            correctAnswersText = GameObject.Find("CorrectAnswersText")?.GetComponent<TextMeshProUGUI>();
+            if (correctAnswersText == null)
+            {
+                Debug.LogError("未找到 correctAnswersText 对象！请确保场景中有名为 CorrectAnswersText 的 TMP 文本对象。");
+                return;
+            }
         }
 
         // 获取全局答对题目数量
