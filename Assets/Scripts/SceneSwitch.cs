@@ -16,7 +16,6 @@ public class SceneSwitch : MonoBehaviour
     {
         LoopList = new LoopList();
         LoopList.childrenDeque = new LinkedList<LoopListItem>();
-        // 为按钮添加点击事件
         switchButton.onClick.AddListener(() => LoadScene(targetSceneName));
     }
 

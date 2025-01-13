@@ -6,6 +6,6 @@ public class Close : MonoBehaviour
 {
     public void OnCloseButtonClick()
     {
-        gameObject.SetActive(false); // вўВи Panel
+        gameObject.SetActive(false); 
     }
 }

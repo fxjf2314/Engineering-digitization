@@ -24,13 +24,14 @@ public class DragManager : MonoBehaviour
     private Quaternion initialCameraRotation;
     private Vector3 initialCameraPosition;
 
-    private int completedCount = 0; // 计数器
-    private int currentIndex = 0; // 当前可吸附的物体索引
+    private int completedCount = 0;
+    private int currentIndex = 0; 
 
-    public GameObject completionText; // UI 提示元素
-    public NewObjectController newObjectController; // 新物体控制器
+    public GameObject completionText; 
+    public NewObjectController newObjectController; 
 
-    private List<Transform> dragObjects = new List<Transform>(); // 所有可拖动物体的列表
+    private List<Transform> dragObjects = new List<Transform>();
+    private Dictionary<Transform, Vector3> initialPositions = new Dictionary<Transform, Vector3>(); 
 
     private void Start()
     {
@@ -40,12 +41,13 @@ public class DragManager : MonoBehaviour
         isDrag = false;
         em = new Dictionary<Transform, Transform>();
 
-        // 初始化可拖动物体列表
+        // 初始化可拖动物体列表和初始位置
         for (int i = 0; i < emParts.childCount; i++)
         {
             Transform child = emParts.GetChild(i);
             em.Add(child, finalEm.Find(child.name));
             dragObjects.Add(child);
+            initialPositions.Add(child, child.position); // 存储初始位置
         }
 
         Debug.Log("em.Count: " + em.Count); // 调试日志
@@ -140,8 +142,6 @@ public class DragManager : MonoBehaviour
         {
             if (Vector3.Distance(dragObj.position, em[dragObj].position) < dis)
             {
-                Debug.Log("物体已吸附"); // 调试日志
-
                 dragObj.position = em[dragObj].position;
                 dragObj.tag = "Finished";
                 em[dragObj].gameObject.SetActive(false);
@@ -151,9 +151,7 @@ public class DragManager : MonoBehaviour
                 isDrag = false;
 
                 completedCount++;
-                Debug.Log("completedCount: " + completedCount); // 调试日志
 
-                // 更新当前顺序索引
                 if (currentIndex + 1 < dragObjects.Count)
                 {
                     currentIndex++;
@@ -161,21 +159,14 @@ public class DragManager : MonoBehaviour
 
                 if (completedCount == em.Count)
                 {
-                    Debug.Log("所有物体已吸附"); // 调试日志
                     ShowCompletionMessage();
                 }
             }
-        }
-        else
-        {
-            Debug.Log("拖拽顺序错误，物体不会被吸附"); // 调试日志
         }
     }
 
     private void ShowCompletionMessage()
     {
-        Debug.Log("ShowCompletionMessage 被调用"); // 调试日志
-
         // 隐藏所有拼接完成的物体
         foreach (Transform obj in dragObjects)
         {
@@ -198,8 +189,43 @@ public class DragManager : MonoBehaviour
 
     private IEnumerator HideCompletionMessageAfterDelay(float delay)
     {
-        Debug.Log("协程 HideCompletionMessageAfterDelay 被调用"); // 调试日志
         yield return new WaitForSeconds(delay);
         completionText.SetActive(false);
+    }
+
+    
+    public void ResetAllObjects()
+    {
+
+        completedCount = 0;
+        currentIndex = 0;
+
+        foreach (Transform obj in dragObjects)
+        {
+            obj.position = initialPositions[obj]; 
+            obj.tag = "DragObj"; 
+            obj.gameObject.SetActive(true); 
+
+            Outline outline = obj.GetComponent<Outline>();
+            if (outline != null)
+            {
+                outline.enabled = false;
+            }
+        }
+
+        foreach (var pair in em)
+        {
+            pair.Value.gameObject.SetActive(true);
+        }
+
+        if (completionText != null)
+        {
+            completionText.SetActive(false);
+        }
+
+        if (newObjectController != null)
+        {
+            newObjectController.Hide();
+        }
     }
 }

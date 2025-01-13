@@ -12,51 +12,39 @@ public class QuizButton : MonoBehaviour
 
     private void Start()
     {
-        // 为按钮添加点击事件
         targetButton.onClick.AddListener(OnButtonClick);
     }
 
     private void OnButtonClick()
     {
-        // 获取全局进度
         float progress = GlobalQuizManager.Instance.GetGlobalProgress();
 
-        // 获取全局正确答题数
         int correctAnswers = GlobalQuizManager.Instance.totalCorrectAnswers;
 
-        // 判断是否全部答完
-        if (progress >= 1.0f) // 全部答完
+        if (progress >= 1.0f) 
         {
-            // 判断正确答题数是否达到 20
             if (correctAnswers >= 20)
             {
-                // 打开答题正确数达到 20 的 Panel
                 panelCorrect20.SetActive(true);
             }
             else
             {
-                // 打开答题正确数不足 20 的 Panel
                 panelLessThan20.SetActive(true);
             }
         }
-        else // 未全部答完
+        else 
         {
-            // 显示悬浮字体提示
             ShowFloatingText("回答完全部问题才可打开！");
         }
     }
 
-    // 显示悬浮字体提示
     private void ShowFloatingText(string message)
     {
-        // 实例化悬浮字体预制体
         GameObject floatingTextObj = Instantiate(floatingTextPrefab, canvasTransform);
 
-        // 设置悬浮字体的文本内容
         TextMeshProUGUI floatingText = floatingTextObj.GetComponent<TextMeshProUGUI>();
         floatingText.text = message;
 
-        // 3 秒后销毁悬浮字体
-        Destroy(floatingTextObj, 3f);
+        Destroy(floatingTextObj, 1.5f);
     }
 }

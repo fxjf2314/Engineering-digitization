@@ -25,10 +25,8 @@ public class ButtonManagerRevolve : MonoBehaviour
 
     void Start()
     {
-        // 初始化按钮状态
         UpdateButtonStates();
 
-        // 绑定按钮点击事件
         rotateButton.onClick.AddListener(OnRotateButtonClick);
         startSplicingButton.onClick.AddListener(OnStartSplicingButtonClick);
         removeButton.onClick.AddListener(OnRemoveButtonClick);
@@ -36,10 +34,8 @@ public class ButtonManagerRevolve : MonoBehaviour
         revolveStopButton.onClick.AddListener(OnRevolveStopButtonClick);
         speedControlButton.onClick.AddListener(OnSpeedControlButtonClick);
 
-        // 初始时 Slider 不可见
         speedSlider.gameObject.SetActive(false);
 
-        // 监听 Slider 的鼠标松开事件
         if (speedSlider != null)
         {
             EventTrigger trigger = speedSlider.gameObject.GetComponent<EventTrigger>();
@@ -53,7 +49,6 @@ public class ButtonManagerRevolve : MonoBehaviour
             entry.callback.AddListener((data) => OnSliderPointerUp());
             trigger.triggers.Add(entry);
 
-            // 监听 Slider 的值变化事件
             speedSlider.onValueChanged.AddListener(OnSliderValueChanged);
         }
     }

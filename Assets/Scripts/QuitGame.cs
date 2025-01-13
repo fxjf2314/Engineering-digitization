@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class QuitGame : MonoBehaviour
 {
-    // 退出游戏的方法
     public void ExitGame()
     {
 #if UNITY_EDITOR

@@ -15,9 +15,6 @@ public class ResetObject : MonoBehaviour
         {
             initialCameraPosition = mainCamera.transform.position;
             initialCameraRotation = mainCamera.transform.rotation;
-
-            //Debug.Log($"Initial Camera Position: {initialCameraPosition}, Rotation: {initialCameraRotation}");
-
             objectDrag = mainCamera.GetComponent<ObjectDrag>(); // 获取 ObjectDrag 组件
         }
     }

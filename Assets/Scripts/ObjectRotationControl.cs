@@ -12,24 +12,20 @@ public class ObjectRotationControl : MonoBehaviour
 
     void Start()
     {
-        // 绑定按钮点击事件
         if (speedControlButton != null)
         {
             speedControlButton.onClick.AddListener(OnSpeedControlButtonClick);
         }
 
-        // 初始化Slider
         if (speedSlider != null)
         {
-            speedSlider.gameObject.SetActive(false); // 默认隐藏Slider
+            speedSlider.gameObject.SetActive(false); 
             speedSlider.minValue = minSpeed;
             speedSlider.maxValue = maxSpeed;
-            speedSlider.value = rotationControllers[0].rotateSpeed; // 默认以第一个Controller的速度为初始值
+            speedSlider.value = rotationControllers[0].rotateSpeed; 
             speedSlider.onValueChanged.AddListener(OnSpeedSliderValueChanged);
         }
     }
-
-    // 按钮点击事件
     private void OnSpeedControlButtonClick()
     {
         if (speedSlider != null)
@@ -38,12 +34,10 @@ public class ObjectRotationControl : MonoBehaviour
         }
     }
 
-    // Slider值改变事件
     private void OnSpeedSliderValueChanged(float value)
     {
         if (rotationControllers != null && rotationControllers.Length > 0)
         {
-            // 遍历所有Controller，更新旋转速度
             foreach (var controller in rotationControllers)
             {
                 if (controller != null)

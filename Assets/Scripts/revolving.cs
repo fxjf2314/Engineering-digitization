@@ -9,9 +9,7 @@ public class Controller : MonoBehaviour
 
     void Start()
     {
-        // 记录初始旋转状态
         initialRotation = transform.rotation;
-        // 计算物体的中心点
         centerPoint = GetCenterPoint();
     }
 
@@ -19,7 +17,6 @@ public class Controller : MonoBehaviour
     {
         if (isRotating)
         {
-            // 绕物体的中心点沿 X 轴旋转
             transform.RotateAround(centerPoint, Vector3.right, rotateSpeed * Time.deltaTime);
         }
     }
@@ -37,13 +34,11 @@ public class Controller : MonoBehaviour
 
     private void ResetToInitialRotation()
     {
-        // 重置旋转状态
         transform.rotation = initialRotation;
     }
 
     private Vector3 GetCenterPoint()
     {
-        // 获取物体的中心点
         Renderer renderer = GetComponent<Renderer>();
         if (renderer != null)
         {
@@ -51,7 +46,6 @@ public class Controller : MonoBehaviour
         }
         else
         {
-            // 如果没有 Renderer 组件，则返回物体的位置
             return transform.position;
         }
     }

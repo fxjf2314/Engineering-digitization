@@ -12,8 +12,6 @@ public class OptionText : MonoBehaviour
 
     private void Start()
     {
-        
-        // 为每个按钮添加点击事件
         foreach (var button in buttons)
         {
             button.onClick.AddListener(() => UpdateText(button));
@@ -23,10 +21,8 @@ public class OptionText : MonoBehaviour
 
     private void UpdateText(Button button)
     {
-        // 获取按钮上的文本
         string buttonText = button.GetComponentInChildren<TextMeshProUGUI>().text;
 
-        // 根据按钮上的文本判断并设置显示文本
         switch (buttonText)
         {
             case "转子与磁钢":
@@ -58,12 +54,7 @@ public class OptionText : MonoBehaviour
                 break;
         }
 
-        // 更新显示文本
         displayText.text = currentDisplayText;
     }
 
-    // 打开对应的 Panel
-    
-   
-   
 }

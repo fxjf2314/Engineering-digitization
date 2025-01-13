@@ -2,15 +2,29 @@ using UnityEngine;
 
 public class NewObjectController : MonoBehaviour
 {
+    public GameObject newObject; // 新物体
+
     private void Start()
     {
-        // 初始状态为隐藏
-        gameObject.SetActive(false);
+        if (newObject != null)
+        {
+            newObject.SetActive(false);
+        }
     }
 
     public void Show()
     {
-        // 显示新物体
-        gameObject.SetActive(true);
+        if (newObject != null)
+        {
+            newObject.SetActive(true); 
+        }
+    }
+
+    public void Hide()
+    {
+        if (newObject != null)
+        {
+            newObject.SetActive(false);
+        }
     }
 }
