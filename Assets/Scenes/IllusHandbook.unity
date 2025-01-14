@@ -757,6 +757,7 @@ GameObject:
   - component: {fileID: 64296863}
   - component: {fileID: 64296862}
   - component: {fileID: 64296865}
+  - component: {fileID: 64296866}
   m_Layer: 5
   m_Name: Core clue
   m_TagString: Untagged
@@ -892,6 +893,21 @@ MonoBehaviour:
   panel: {fileID: 962817490}
   completionText: {fileID: 1613128845}
   quizManager: {fileID: 318903724}
+  quizManager11: {fileID: 962817493}
+--- !u!114 &64296866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64296859}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb4d4b8074f9bbf489f5cd87bc50cb0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panel: {fileID: 962817490}
+  completionText: {fileID: 1613128845}
   quizManager11: {fileID: 962817493}
 --- !u!1 &71033060
 GameObject:
@@ -10208,6 +10224,7 @@ GameObject:
   - component: {fileID: 962817495}
   - component: {fileID: 962817494}
   - component: {fileID: 962817493}
+  - component: {fileID: 962817496}
   m_Layer: 5
   m_Name: Panel1
   m_TagString: Panel
@@ -10301,6 +10318,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 962817490}
   m_CullTransparentMesh: 1
+--- !u!114 &962817496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962817490}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35e124b6aea168143829c921f97fd057, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questionDatas:
+  - {fileID: 11400000, guid: 27138e72fe614c245aa7f50aa02e5876, type: 2}
+  fillImage: {fileID: 59618153}
+  progressText: {fileID: 588063354}
+  questionPanel: {fileID: 962817490}
+  questionText: {fileID: 928097837}
+  optionButtons:
+  - {fileID: 1974623497}
+  - {fileID: 1460497906}
+  - {fileID: 1774468617}
+  - {fileID: 2097673431}
+  feedbackText: {fileID: 927232622}
+  nextButton: {fileID: 82108225}
 --- !u!1 &991250785
 GameObject:
   m_ObjectHideFlags: 0
@@ -15900,7 +15942,7 @@ GameObject:
   - component: {fileID: 1613128846}
   - component: {fileID: 1613128845}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Text1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

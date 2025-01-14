@@ -18,6 +18,7 @@ public class QuizManager : MonoBehaviour
     private string sceneName;            // 当前场景名称
     private string currentGroupName;     // 当前题目组别名称
     private QuestionData currentQuestionData; // 当前题目数据
+    private bool isPanelDestroyed = false; // 标记 panel 是否已被销毁
 
     private void Start()
     {
@@ -29,9 +30,9 @@ public class QuizManager : MonoBehaviour
     public void SwitchQuestionGroup(int groupIndex)
     {
         currentQuestionData = questionDatas[groupIndex];
-        currentGroupName = currentQuestionData.groupName; 
+        currentGroupName = currentQuestionData.groupName;
         totalQuestions = currentQuestionData.questions.Length;
- 
+
         GlobalQuizManager.Instance.InitializeSceneStatus(sceneName, currentGroupName, totalQuestions);
 
         currentQuestionIndex = 0;
@@ -42,7 +43,7 @@ public class QuizManager : MonoBehaviour
     void LoadQuestion(int index)
     {
         QuestionData.Question question = currentQuestionData.questions[index];
-        questionText.text = question.questionText; 
+        questionText.text = question.questionText;
 
         for (int i = 0; i < optionButtons.Length; i++)
         {
@@ -75,9 +76,9 @@ public class QuizManager : MonoBehaviour
 
     void UpdateProgress()
     {
-        float progress = GlobalQuizManager.Instance.GetGlobalProgress(); 
-        fillImage.fillAmount = progress; 
-        progressText.text = $"{(int)(progress * 100)}%"; 
+        float progress = GlobalQuizManager.Instance.GetGlobalProgress();
+        fillImage.fillAmount = progress;
+        progressText.text = $"{(int)(progress * 100)}%";
     }
 
     public void OnNextButtonClick()
@@ -99,18 +100,46 @@ public class QuizManager : MonoBehaviour
         else
         {
             feedbackText.text = $"当前组别答题完成！";
-            nextButton.interactable = false; 
+            nextButton.interactable = false;
+
+            // 启动协程，延迟销毁 panel
+            StartCoroutine(DestroyPanelAfterFeedback());
         }
     }
+
     public bool IsGroupComplete()
     {
         return currentQuestionIndex == totalQuestions - 1 && !nextButton.interactable;
     }
+
     public void OnCloseButtonClick()
     {
+        if (questionPanel != null && !isPanelDestroyed)
+        {
+            questionPanel.SetActive(false);
+        }
+    }
+
+    // 协程：延迟销毁 panel
+    private System.Collections.IEnumerator DestroyPanelAfterFeedback()
+    {
+        // 等待 2 秒
+        yield return new WaitForSeconds(2f);
+
+        // 销毁 panel
         if (questionPanel != null)
         {
-            questionPanel.SetActive(false); 
+            Destroy(questionPanel);
+            isPanelDestroyed = true; // 标记 panel 已被销毁
+        }
+    }
+
+    // 打开 panel 的方法
+    public void OpenPanel()
+    {
+        if (!isPanelDestroyed && questionPanel != null)
+        {
+            questionPanel.SetActive(true);
         }
     }
 }
