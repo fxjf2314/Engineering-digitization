@@ -33,9 +33,9 @@ public class CameraDragRotate : MonoBehaviour
     {
         if (target)
         {
-            CheckIfDraggingOtherObject(); 
+           // CheckIfDraggingOtherObject(); 
 
-            if (!isDraggingOtherObject && Input.GetMouseButton(0))
+            if ( Input.GetMouseButton(0))//!isDraggingOtherObject &&
             {
                 x += Input.GetAxis("Mouse X") * xSpeed * 0.02f; 
                 y -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f; 
@@ -57,7 +57,7 @@ public class CameraDragRotate : MonoBehaviour
         }
     }
 
-    void CheckIfDraggingOtherObject()
+   /* void CheckIfDraggingOtherObject()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -85,5 +85,5 @@ public class CameraDragRotate : MonoBehaviour
         {
             isDraggingOtherObject = false;
         }
-    }
+    }*/
 }
